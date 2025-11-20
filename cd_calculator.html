@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>High Yield CD Calculator</title>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    :root {
+        --primary-color: #1e3a8a;
+        --secondary-color: #fbbf24;
+    }
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+    }
+</style>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+
+<div class="max-w-lg mx-auto bg-white mt-6 p-6 rounded-xl shadow-lg">
+    <h1 class="text-2xl font-bold text-center text-primary-color mb-2">
+        High Yield CD Calculator
+    </h1>
+
+    <p class="text-sm text-gray-500 text-center mb-4">
+        Estimate your potential earnings on your CD savings.
+    </p>
+
+    <!-- Backlink -->
+    <p class="text-center text-sm text-primary-color font-semibold mb-6">
+        Visit our official site for more tools:
+        <a href="https://highyieldcdcalculator.com/" 
+           target="_blank" 
+           class="underline text-secondary-color">
+           High Yield CD Calculator
+        </a>
+    </p>
+
+    <!-- Input Fields -->
+    <label class="block mb-2 font-semibold">Initial Deposit ($)</label>
+    <input id="deposit" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="Enter amount">
+
+    <label class="block mb-2 font-semibold">APY (%)</label>
+    <input id="apy" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="Enter APY">
+
+    <label class="block mb-2 font-semibold">Term Length (Months)</label>
+    <input id="months" type="number" class="w-full p-3 border rounded-lg mb-6" placeholder="Enter months">
+
+    <button onclick="calculateCD()" class="btn-primary w-full py-3 rounded-lg font-bold mb-4">
+        Calculate
+    </button>
+
+    <!-- Result Box -->
+    <div id="resultBox" class="hidden mt-4 p-4 bg-green-100 rounded-lg text-center">
+        <p class="font-semibold text-lg">Total Value: <span id="totalValue"></span></p>
+        <p class="text-gray-700 text-sm">Interest Earned: <span id="interestEarned"></span></p>
+    </div>
+</div>
+
+<script>
+function calculateCD() {
+    let deposit = parseFloat(document.getElementById("deposit").value);
+    let apy = parseFloat(document.getElementById("apy").value) / 100;
+    let months = parseFloat(document.getElementById("months").value);
+
+    if (isNaN(deposit) || isNaN(apy) || isNaN(months)) {
+        alert("Please fill all fields correctly!");
+        return;
+    }
+
+    let years = months / 12;
+    let total = deposit * Math.pow(1 + apy, years);
+    let interest = total - deposit;
+
+    document.getElementById("totalValue").innerText = "$" + total.toFixed(2);
+    document.getElementById("interestEarned").innerText = "$" + interest.toFixed(2);
+    document.getElementById("resultBox").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
